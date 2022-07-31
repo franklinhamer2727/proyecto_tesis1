@@ -58,7 +58,7 @@ content = texts
 #Creando bigramas
 common_terms = ["of", "with", "without", "and", "or", "the", "a"]
 x=ntexts
-# Create the relevant phrases from the list of sentences:
+# Cree las frases relevantes de la lista de oraciones:
 phrases = Phrases(sentences =x, connector_words=common_terms)
 # The Phraser object is used from now on to transform sentences
 bigram = Phraser(phrases)
@@ -94,7 +94,7 @@ mypath =r'/home/software/Escritorio/github.com/simple_scanner_cv/web_analisis/sr
 onlyfiles = [os.path.join(mypath,f) for f in os.listdir(mypath) if os.path.isfile(os.path.join(mypath,f))]
 
 #analisis de las palbras de los curriculos
-print(onlyfiles)
+#print(onlyfiles)
 
 
 
@@ -133,12 +133,14 @@ def create_profile(file):
     text = str(pdfextract(file))
     text = text.replace("\\n", "")
     text = text.lower()
-    #print(text)
+    print(text)
     #text=create_bigram(text)
-    #print(text)
-    #below is the csv where we have all the keywords, you can customize your own
+    print(text)
+    #a continuación se muestra el csv donde tenemos todas las palabras clave, puede personalizar su propio
     #keyword_dictionary = pd.read_csv(r'C:\Users\dell\Desktop\New folder\ML_CS\NLP\technical_skills.csv')
     stats = [nlp(text[0]) for text in model.wv.most_similar("statistics")]
+    print("hola estamos aqui")
+    print(stats)
     NLP = [nlp(text[0]) for text in model.wv.most_similar("language")]
     ML = [nlp(text[0]) for text in model.wv.most_similar("machine_learning")]
     DL = [nlp(text[0]) for text in model.wv.most_similar("deep")]
@@ -166,7 +168,7 @@ def create_profile(file):
     print("KEYWORDS")
     print(keywords)
     
-    ## convertimg string of keywords to dataframe
+    ## convertir cadena de palabras clave a marco de datos
     df = pd.read_csv(StringIO(keywords),names = ['Keywords_List'])
     df1 = pd.DataFrame(df.Keywords_List.str.split(' ',1).tolist(),columns = ['Subject','Keyword'])
     df2 = pd.DataFrame(df1.Keyword.str.split('(',1).tolist(),columns = ['Keyword', 'Count'])
@@ -196,7 +198,7 @@ def create_profile(file):
 
 
 
-#Code to execute the above functions 
+#Código para ejecutar las funciones anteriores
 final_db=pd.DataFrame()
 i=0
 while i < len(onlyfiles):
